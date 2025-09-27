@@ -3,7 +3,7 @@
 </script>
 
 <template>
-<h1>Говно</h1>
+<h1>Здарова</h1>
 </template>
 
 <style scoped>
