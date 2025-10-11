@@ -15,9 +15,9 @@ export const useArticleStore = defineStore("articles", () => {
                 return article.keywords.includes(key);
             });
 
-            return filteredByKey.slice(0, 6);
+            return filteredByKey.slice(3, 7);
         } else {
-            return filteredByImg.slice(0, 8);
+            return filteredByImg.slice(0, 6);
         }
     };
 
