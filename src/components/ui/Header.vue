@@ -19,6 +19,8 @@
         <span class="date-span">{{actualDate}}</span>
     </div>
     <img class="logo-img-header" src="../../assets/logo.png"></img>
+</header>
+
     <ul class = "tag-list">
         <li class="tag-name">Новости</li> 
         <li class="tag-name">Россия</li>                             
@@ -30,7 +32,6 @@
         <li class="tag-name">Наука</li>
         <li class="tag-name">Эксклюзив</li>
     </ul>
-</header>
 </template>
 
 <style scoped>
@@ -40,6 +41,7 @@
         color: #47474e;
         max-width: 1300px;
         margin: 10px auto;
+        
     }
 
     .date-block{
@@ -58,6 +60,9 @@
     }
 
     .tag-list{
+        position: sticky;
+        top: -2px;
+        z-index: 1;
         border-top: 2px solid;
         border-bottom: 2px solid;
         border-color: #7b7b86;
@@ -65,6 +70,7 @@
         flex-wrap: wrap;
         justify-content: center;
         width: 99%;
+        background-color: #f4f4f9;
     }
 
     li{

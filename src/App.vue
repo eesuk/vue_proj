@@ -9,6 +9,7 @@ const articlesStore = useArticleStore()
 const newArticles = articlesStore.getByKey('NEW');
 const societyArticles = articlesStore.getByKey('общество');
 const scinceArticles = articlesStore.getByKey('наука');
+const cultureArticles = articlesStore.getByKey('культура');
 
 </script>
 
@@ -17,6 +18,8 @@ const scinceArticles = articlesStore.getByKey('наука');
     <main>
         <MainArticlesList title="Последние новости" :articles="newArticles" type="big"></MainArticlesList>
         <MainArticlesList title="Наука" :articles="scinceArticles" type="medium"></MainArticlesList>
+        <MainArticlesList title="Общество" :articles="societyArticles" type="small"></MainArticlesList>
+        <MainArticlesList title="Культура" :articles="cultureArticles" type="small"></MainArticlesList>
     </main>
     <Footer></Footer>
 </template>

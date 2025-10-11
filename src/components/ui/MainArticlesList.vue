@@ -13,9 +13,10 @@ console.log(props.articles)
 </script>
 
 <template>
-<div v-if="type == 'small'" :class = "'theme_block_' + type">
+<div class="theme_block_">
     <h1 class="div_title">{{ title }}</h1>
-    <div class="div_list">
+
+    <div v-if="type == 'small'" class = "div_list">
 
         <div :class = "'article_block_' + type"  :id="article.url" v-for="article in props.articles" 
         :key="article.url">
@@ -23,25 +24,26 @@ console.log(props.articles)
             <span :class="'article_title_' + type">{{ article.title }}</span>
         </div>
 
+
     </div>
-</div>
 
-<div v-else-if="type == 'medium'" :class = "'theme_block_' + type">
-    <h1 class="div_title">{{ title }}</h1>
-    <div class="div_list_medium">
+    <div v-else-if="type == 'medium'" class = "div_list">
 
-        <div :class = "'article_block_' + type + (key == 0 ? '_first' : '_second')" :id="article.url" v-for="(article, key) in props.articles" 
-        :key="article.url">
-            <img class="article_img" :src="article.img"></img>
-            <span class="article_title">{{ article.title }}</span>
+         <div :class="'article_block_' + type + '_first'" :id="articles[0].url">
+            <img class="article_img" :src="articles[0].img"></img>
+            <span class="article_title">{{ articles[0].title }}</span>
         </div>
 
+        <div class="article_column_medium">
+            <div :class = "'article_block_' + type +'_second'" :id="article.url" v-for="(article, key) in props.articles.slice(1, 4)"
+            :key="article.url">
+                <img class="article_img" :src="article.img"></img>
+                <span class="article_title">{{ article.title }}</span>
+            </div>
+        </div>
     </div>
-</div>
 
-<div v-else :class = "'theme_block_' + type">
-    <h1 class="div_title">{{ title }}</h1>
-    <div class="div_list">
+    <div v-else class = "div_list">
 
         <div :class="'article_block_' + type + '_first'" :id="articles[0].url">
             <img class="article_img" :src="articles[0].img"></img>
@@ -74,6 +76,7 @@ console.log(props.articles)
         flex-wrap: wrap;
         padding-top: 20px;
         width: 102%;
+        justify-content: space-between;
     }
 
     /*-----------------small----------------------*/
@@ -97,28 +100,52 @@ console.log(props.articles)
       -webkit-line-clamp: 4; 
       overflow: hidden; 
       line-height: 1.5; 
+      align-self: center;
     }
 
     /*-----------------medium--------------------*/
 
-    .div_list_medium {
-
-    }   
-
     .article_block_medium_first {
-
+        display: grid;
+        width: 720px;
+        height: 650px;
     }
 
     .article_block_medium_first > img {
+        border-radius: 2%;
+        width: 100%;
+        height: 100%;;
+    }
 
+    .article_block_medium_first > span {
+        font-size: 30px;
+        margin: 0;
+        text-align: center;
+        color:#595962;
+    }
+
+    .article_column_medium{
+        display: grid;
+        width: 580px;
+        height: 520px;
     }
 
     .article_block_medium_second {
-
+        display: flex;
+        gap: 25px;
+        width: 100%;
+        height: 150px;
     }
 
     .article_block_medium_second > img {
+        border-radius: 2%;
+        width: 50%;
+        height: 100%;
+    }
 
+    .article_block_medium_second > span {
+        align-self: center;
+        font-size: 14px;
     }
 
     /*-----------------big-----------------------*/
