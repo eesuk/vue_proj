@@ -1,5 +1,5 @@
 <script setup>
-import { convertToEnglish } from '@/utils/convertToLatinLetters';
+import MainArticle from '../base/MainArticle.vue';
 
 const props = defineProps({
   title: String,
@@ -9,59 +9,81 @@ const props = defineProps({
 
 const type = props.type;
 
-console.log(props.articles)
 </script>
 
 <template>
 <div class="theme_block_">
-    <h1 class="div_title">{{ title }}</h1>
+    <div class = "title_and_btn">
+        <h1 class="div_title">{{ title }}</h1>
+        <div class="viewall_block">
+            <span class="viewall_span">Перейти</span>
+            <img  class="viewall_btn" src="../../assets/arrow_right.png"></img>
+        </div>
+    </div>
 
     <div v-if="type == 'small'" class = "div_list">
 
-        <div :class = "'article_block_' + type"  :id="article.url" v-for="article in props.articles" 
-        :key="article.url">
-            <img :class="'article_img_' + type" :src="article.img"></img>
-            <span :class="'article_title_' + type">{{ article.title }}</span>
-        </div>
-
+        <MainArticle v-for="article in props.articles" 
+            :article="article" 
+            :className = "'article_block_' + type"
+            :type = "type"  
+            :articles:id="article.url" 
+            :key="article.url"
+        >
+        </MainArticle>
 
     </div>
 
     <div v-else-if="type == 'medium'" class = "div_list">
 
-         <div :class="'article_block_' + type + '_first'" :id="articles[0].url">
-            <img class="article_img" :src="articles[0].img"></img>
-            <span class="article_title">{{ articles[0].title }}</span>
-        </div>
+         <MainArticle 
+            :className="'article_block_' + type + '_first'" 
+            :article="articles[0]"
+            :type = "type"
+            :id="articles[0].url"
+            :key="articles[0].url">
+        </MainArticle>
 
         <div class="article_column_medium">
-            <div :class = "'article_block_' + type +'_second'" :id="article.url" v-for="(article, key) in props.articles.slice(1, 4)"
-            :key="article.url">
-                <img class="article_img" :src="article.img"></img>
-                <span class="article_title">{{ article.title }}</span>
-            </div>
+            <MainArticle v-for="(article, key) in props.articles.slice(1, 4)"
+                :className = "'article_block_' + type +'_second'" 
+                :article="article"
+                :type = "type"
+                :id="article.url"
+                :key="article.url">
+            </MainArticle>
         </div>
+
     </div>
 
     <div v-else class = "div_list">
 
-        <div :class="'article_block_' + type + '_first'" :id="articles[0].url">
-            <img class="article_img" :src="articles[0].img"></img>
-            <span class="article_title">{{ articles[0].title }}</span>
-        </div>
+        <MainArticle 
+            :className="'article_block_' + type + '_first'" 
+            :article="articles[0]"
+            :type = "type"
+            :id="articles[0].url"
+            :key="articles[0].url">
+        </MainArticle>
 
         <div class="article_column_big">
-            <div :class="'article_block_' + type + '_second'" v-for="article in props.articles.slice(1, 3)" :key="article.url">
-                <span class="article_title">{{ article.title }}</span>
-                <img class="article_img" :src="article.img"></img>
-            </div>
+            <MainArticle v-for="article in props.articles.slice(1, 3)" 
+                :className="'article_block_' + type + '_second'" 
+                :article="article"
+                :type = "type"
+                :id="article.url"
+                :key="article.url">
+            </MainArticle>
         </div>
 
         <div class="article_raw_big">
-            <div :class="'article_block_' + type + '_third'" v-for="article in props.articles.slice(3, 6)">
-                <img class="article_img" :src="article.img"></img>
-                <span class="article_title">{{ article.title }}</span>
-            </div>
+            <MainArticle v-for="article in props.articles.slice(3, 6)" 
+                :className="'article_block_' + type + '_third'" 
+                :article="article"
+                :type = "type"
+                :id="article.url"
+                :key="article.url">
+            </MainArticle>
         </div>
 
     </div>
@@ -69,6 +91,10 @@ console.log(props.articles)
 </template>
 
 <style scoped>
+
+    .theme_block_{
+        margin-top: 50px;
+    }
 
     .div_list{
         border-top: 2px solid #7b7b86;
@@ -79,6 +105,27 @@ console.log(props.articles)
         justify-content: space-between;
     }
 
+    .title_and_btn{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .viewall_block{
+        display: flex;
+        margin-top: 20px;
+        width: 130px;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .viewall_span{
+        font-size: 20px;
+    }
+
+    .viewall_btn{
+        height: 35px;
+    }
+
     /*-----------------small----------------------*/
 
     .article_block_small{
@@ -86,21 +133,6 @@ console.log(props.articles)
         display: grid;
         margin-inline: 15px;
         margin-bottom: 15px;
-    }
-
-    .article_img_small{
-        border-radius: 4%;
-        height: 170px;
-        width: 100%;
-    }
-
-    .article_title_small{
-      display: -webkit-box; 
-      -webkit-box-orient: vertical; 
-      -webkit-line-clamp: 4; 
-      overflow: hidden; 
-      line-height: 1.5; 
-      align-self: center;
     }
 
     /*-----------------medium--------------------*/
@@ -187,6 +219,7 @@ console.log(props.articles)
         width: 100%;
         height: 100%;
         display: flex;
+        flex-direction: row-reverse;
         gap: 15px
     }
 

@@ -22,6 +22,7 @@
 </header>
 
     <ul class = "tag-list">
+        <li class="tag-name">Главная</li> 
         <li class="tag-name">Новости</li> 
         <li class="tag-name">Россия</li>                             
         <li class="tag-name">Спорт</li>
