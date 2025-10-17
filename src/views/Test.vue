@@ -1,6 +1,11 @@
 <script setup>
+
 </script>
 
 <template>
-  <router-view />
+    <h1>Тест</h1>
 </template>
+
+<style scoped>
+
+</style>

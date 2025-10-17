@@ -2,9 +2,12 @@
     import {ref, onMounted} from 'vue'
     import moment from 'moment';
     import 'moment/locale/ru'
-    moment.locale("ru")
 
+    import { convertToEnglish } from '@/utils/convertToLatinLetters';
+
+    moment.locale("ru")
     const actualDate = ref(moment().format('D MMMM YYYY, H:mm:ss'))
+    const keys = ['Россия', 'Спорт', 'Политика', 'Экономика' , 'Общество', 'Культура', 'Наука']
 
     onMounted(() => {
         setInterval(() => {
@@ -22,16 +25,25 @@
 </header>
 
     <ul class = "tag-list">
-        <li class="tag-name">Главная</li> 
-        <li class="tag-name">Новости</li> 
-        <li class="tag-name">Россия</li>                             
-        <li class="tag-name">Спорт</li>
-        <li class="tag-name">Политика</li>
-        <li class="tag-name">Экономика</li>
-        <li class="tag-name">Общество</li>
-        <li class="tag-name">Культура</li>
-        <li class="tag-name">Наука</li>
-        <li class="tag-name">Эксклюзив</li>
+        <router-link :to="{path: '/'}" class="tag-name">
+            <li>
+                Главная
+            </li> 
+        </router-link>
+        <router-link :to="{ path: '/test'}" class="tag-name">
+            <li>
+                Новости
+            </li>
+        </router-link>
+        <router-link v-for = "key in keys" 
+        :to="{ name: 'titles', 
+        params: { key: convertToEnglish(key).toLowerCase() },
+        query: {key: key.toLowerCase()} }" 
+        class="tag-name">
+            <li>
+                {{ key }}
+            </li>
+        </router-link>
     </ul>
 </template>
 
@@ -39,10 +51,8 @@
 
     .header_container{
         display: grid;
-        color: #47474e;
         max-width: 1300px;
         margin: 10px auto;
-        
     }
 
     .date-block{
@@ -78,6 +88,11 @@
         padding-inline: 30px;
         padding-block: 15px;
         list-style-type: none;
+    }
+
+    .tag-name{
+        color: #47474e;
+        text-decoration: none;
     }
 
     li:hover{

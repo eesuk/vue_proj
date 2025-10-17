@@ -5,8 +5,8 @@ import fakeAPI from "@/assets/FakeApi";
 export const useArticleStore = defineStore("articles", () => {
     const articleList = ref(fakeAPI);
 
-    const getByKey = (key) => {
-        let filteredByImg = articleList.value.filter((article) => {
+    const getByKeyToMain = (key) => {
+        const filteredByImg = articleList.value.filter((article) => {
             return article.img != null;
         });
 
@@ -21,5 +21,21 @@ export const useArticleStore = defineStore("articles", () => {
         }
     };
 
-    return { articleList, getByKey };
+    const getByKeyToList = (key) => {
+        const filteredByImg = articleList.value.filter((article) => {
+            return article.img != null;
+        });
+
+        if (key != "NEW") {
+            let filteredByKey = filteredByImg.filter((article) => {
+                return article.keywords.includes(key);
+            });
+
+            return filteredByKey;
+        } else {
+            return filteredByImg;
+        }
+    };
+
+    return { articleList, getByKeyToMain, getByKeyToList };
 });
