@@ -30,7 +30,10 @@
                 Главная
             </li> 
         </router-link>
-        <router-link :to="{ path: '/test'}" class="tag-name">
+        <router-link :to="{ name: 'titles', 
+        params: { key: 'NEW' },
+        query: {key: 'NEW'} }"
+        class="tag-name">
             <li>
                 Новости
             </li>

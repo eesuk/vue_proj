@@ -37,5 +37,23 @@ export const useArticleStore = defineStore("articles", () => {
         }
     };
 
-    return { articleList, getByKeyToMain, getByKeyToList };
+    const getByTitle = (title) => {
+        const filteredByTitle = articleList.value.find((article) => {
+            return article.title == title;
+        });
+
+        return filteredByTitle;
+    };
+
+    const GetLength = (key) => {
+        return getByKeyToList(key).length;
+    };
+
+    return {
+        articleList,
+        getByKeyToMain,
+        getByKeyToList,
+        GetLength,
+        getByTitle,
+    };
 });

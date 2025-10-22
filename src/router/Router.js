@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "@/views/HomePage.vue";
-import Test from "@/views/Test.vue";
 import ArticlesList from "@/views/ArticlesList.vue";
+import ArticlePage from "@/views/ArticlePage.vue";
 
 export const router = createRouter({
     routes: [
@@ -10,14 +10,16 @@ export const router = createRouter({
             component: HomePage,
         },
         {
-            path: "/test",
-            component: Test,
-        },
-        {
             path: "/titles/:key",
             name: "titles",
             props: true,
             component: ArticlesList,
+        },
+        {
+            path: "/article/:title",
+            name: "article",
+            props: true,
+            component: ArticlePage,
         },
         {
             path: "/:pathMatch(.*)*",

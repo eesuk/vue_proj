@@ -1,10 +1,12 @@
 <script setup>
 import MainArticle from '../base/MainArticle.vue';
+import { convertToEnglish } from '@/utils/convertToLatinLetters';
 
 const props = defineProps({
   title: String,
   articles: Array,
-  type: String
+  type: String,
+  keyToRoute: String,
 })
 
 const type = props.type;
@@ -15,10 +17,19 @@ const type = props.type;
 <div class="theme_block_">
     <div class = "title_and_btn">
         <h1 class="div_title">{{ title }}</h1>
-        <div class="viewall_block">
-            <span class="viewall_span">Перейти</span>
-            <img  class="viewall_btn" src="../../assets/arrow_right.png"></img>
-        </div>
+
+            <router-link class="router"
+            :to="{ name: 'titles', 
+            params: { key: convertToEnglish(keyToRoute) },
+            query: {key: keyToRoute} }" 
+            >
+                <div class="viewall_block">
+                    <span class="viewall_span">Перейти</span>
+                    <img  class="viewall_btn" src="../../assets/arrow_right.png"></img>
+                </div>
+
+            </router-link>
+            
     </div>
 
     <div v-if="type == 'small'" class = "div_list">
@@ -118,8 +129,10 @@ const type = props.type;
         align-items: center;
     }
 
-    .viewall_span{
+    .router{
+        text-decoration: none;
         font-size: 20px;
+        color: black
     }
 
     .viewall_btn{

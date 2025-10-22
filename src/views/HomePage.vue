@@ -1,17 +1,12 @@
 <script setup>
-import Header from '@/components/ui/Header.vue';
+import Header from '@/components/base/Header.vue';
 import MainArticlesList from '@/components/ui/MainArticlesList.vue';
-import Footer from '@/components/ui/Footer.vue';
+import Footer from '@/components/base/Footer.vue';
 
 import { useArticleStore } from '@/stores/articleStores';
 
 const articlesStore = useArticleStore()
-const newArticles = articlesStore.getByKeyToMain('NEW');
-const societyArticles = articlesStore.getByKeyToMain('общество');
-const scinceArticles = articlesStore.getByKeyToMain('наука');
-const cultureArticles = articlesStore.getByKeyToMain('культура');
-
-const keywordsList = ['NEW', 'общество', 'наука', 'культура', 'экономика', 'спорт', 'россия']
+const keywordsList = ['NEW', 'наука', 'общество', 'культура', 'экономика', 'спорт', 'россия']
 
 </script>
 
@@ -19,9 +14,11 @@ const keywordsList = ['NEW', 'общество', 'наука', 'культура
     <Header></Header>
     <main>
         <MainArticlesList v-for="(keyword, key) in keywordsList"
-        :title="(key == 0 ? 'Последний новости' : keyword)"
+        :title="(key == 0 ? 'Последний новости' : ( keyword[0].toUpperCase() + keyword.slice(1) ))"
         :articles="articlesStore.getByKeyToMain(keywordsList[key])" 
-        :type="(key == 0 ? 'big' : key == 1 ? 'medium' : 'small' )">
+        :type="(key == 0 ? 'big' : key == 1 ? 'medium' : 'small' )"
+        :keyToRoute ="keyword"
+        >
         </MainArticlesList>
     </main>
     <Footer></Footer>
