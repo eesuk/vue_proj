@@ -1,4 +1,5 @@
 <script setup>
+import { convertToEnglish } from '@/utils/convertToLatinLetters';
 
 const props = defineProps({
     article: Object,
@@ -9,13 +10,24 @@ const props = defineProps({
 </script>
 
 <template>
-    <div :class = "props.className"  :id="props.article.url">
-        <img :class="'article_img_' + props.type" :src="props.article.img"></img>
-        <span :class="'article_title_' + props.type">{{ props.article.title }}</span>
-    </div>
+     <router-link  :key = "article.url" :class="props.className"
+        :id="props.article.url"
+        :to="{ name: 'article', 
+        params: { title: convertToEnglish(article.title) },
+        query: {title: article.title}}"
+        >
+            <img :class="'article_img_' + props.type" :src="props.article.img"></img>
+            <span :class="'article_title_' + props.type">{{ props.article.title }}</span>
+    </router-link>
 </template>
 
 <style scoped>
+
+.article_block_big_first, .article_block_big_second, .article_block_big_third,
+.article_block_medium_first, .article_block_medium_second, .article_block_small{
+    text-decoration: none; 
+    color: inherit;     
+}
 
 /*---------------small-----------------------*/
 
